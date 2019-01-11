@@ -673,8 +673,11 @@
       }
     },
 
-    encodeHtml: function (htmlSource) {
-      return jQuery('<div/>').text(htmlSource).html();
+      encodeHtml: function (htmlSource) {
+          htmlSource = htmlSource.replace(/\\/g, '\\\\').replace(/&quot;/g, "&amp;quot;").replace(/\"/g, "\\\"").replace(/&amp;/g, "&amp;amp;"); //Sitecore.Support.303772
+          var encodedHtml = encodeURIComponent(htmlSource);
+          return encodedHtml;
+      //return jQuery('<div/>').text(htmlSource).html();
     },
 
     getUrlQueryStringValue: function (parameterName) {
