@@ -674,10 +674,14 @@
     },
 
       encodeHtml: function (htmlSource) {
-          htmlSource = htmlSource.replace(/\\/g, '\\\\').replace(/&quot;/g, "&amp;quot;").replace(/\"/g, "\\\"").replace(/&amp;/g, "&amp;amp;"); //Sitecore.Support.303772
+          htmlSource = htmlSource.replace(/\\/g, '\\\\').replace(/&quot;/g, "&amp;quot;").replace(/\"/g, "\\\"").replace(/&nbsp;/g, " "); //Sitecore.Support.303772
+          htmlSource = htmlSource.replace(/[\u00A0-\u9999<>\&]/gim, function (i) {
+              return '&#' + i.charCodeAt(0) + ';';
+          });
           var encodedHtml = encodeURIComponent(htmlSource);
+
           return encodedHtml;
-      //return jQuery('<div/>').text(htmlSource).html();
+          //return jQuery('<div/>').text(htmlSource).html();
     },
 
     getUrlQueryStringValue: function (parameterName) {
